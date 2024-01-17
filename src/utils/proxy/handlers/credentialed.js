@@ -61,6 +61,8 @@ export default async function credentialedProxyHandler(req, res, map) {
         headers.Authorization = `Basic ${Buffer.from(`$:${widget.key}`).toString("base64")}`;
       } else if (widget.type === "glances") {
         headers.Authorization = `Basic ${Buffer.from(`${widget.username}:${widget.password}`).toString("base64")}`;
+      } else if (widget.type === "alist") {
+        headers.Authorization = `${widget.token}`;
       } else {
         headers["X-API-Key"] = `${widget.key}`;
       }

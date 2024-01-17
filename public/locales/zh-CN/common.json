@@ -746,5 +746,9 @@
         "physicalRelease": "Physical release",
         "inCinemas": "In cinemas",
         "digitalRelease": "Digital release"
+    },
+    "alist": {
+        "storage_count": "挂载数",
+        "storage_error": "挂载错误"
     }
 }

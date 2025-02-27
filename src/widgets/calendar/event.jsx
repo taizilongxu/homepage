@@ -16,7 +16,7 @@ export default function Event({ event, colorVariants, showDate = false, showTime
       key={`event-${event.title}-${event.date}-${event.additional}`}
     >
       {showDateColumn && (
-        <span className="ml-2 w-10">
+        <span className="ml-2 w-12">
           <span>
             {(showDate || showTime) &&
               event.date
@@ -39,7 +39,4 @@ export default function Event({ event, colorVariants, showDate = false, showTime
     </div>
   );
 }
-
-export function compareDateTimezoneAware(date, event) {
-  return date.setZone(event.date.zoneName).startOf("day").valueOf() === event.date.startOf("day").valueOf();
-}
+export const compareDateTimezone = (date, event) => date.startOf("day").ts === event.date.startOf("day").ts;

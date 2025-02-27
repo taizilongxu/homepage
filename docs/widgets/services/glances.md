@@ -3,6 +3,8 @@ title: Glances
 description: Glances Widget Configuration
 ---
 
+Learn more about [Glances](https://github.com/nicolargo/glances).
+
 <img width="1614" alt="glances" src="https://github-production-user-asset-6210df.s3.amazonaws.com/82196/257382012-25648c97-2c1b-4db0-b5a5-f1509806079c.png">
 
 _(Find the Glances information widget [here](../info/glances.md))_
@@ -15,7 +17,11 @@ widget:
   url: http://glances.host.or.ip:port
   username: user # optional if auth enabled in Glances
   password: pass # optional if auth enabled in Glances
+  version: 4 # required only if running glances v4 or higher, defaults to 3
   metric: cpu
+  diskUnits: bytes # optional, bytes (default) or bbytes. Only applies to disk
+  refreshInterval: 5000 # optional - in milliseconds, defaults to 1000 or more, depending on the metric
+  pointsLimit: 15 # optional, defaults to 15
 ```
 
 _Please note, this widget does not need an `href`, `icon` or `description` on its parent service. To achieve the same effect as the examples above, see as an example:_
@@ -44,6 +50,8 @@ The metric field in the configuration determines the type of system monitoring d
 `memory`: Memory usage. Shows how much of the system's RAM is currently being used.
 
 `process`: Top 5 processes based on CPU usage. Gives an overview of which processes are consuming the most resources.
+
+`containers`: Docker or Kubernetes containers list. Shows up to 5 containers running on the system and their resource usage.
 
 `network:<interface_name>`: Network data usage for the specified interface. Replace `<interface_name>` with the name of your network interface, e.g., `network:enp0s25`, as specified in glances.
 

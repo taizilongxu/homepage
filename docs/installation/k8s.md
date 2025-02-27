@@ -175,6 +175,7 @@ data:
         expanded: true
         cpu: true
         memory: true
+        network: default
     - search:
         provider: duckduckgo
         target: _blank
@@ -209,7 +210,7 @@ rules:
       - get
       - list
   - apiGroups:
-      - traefik.containo.us
+      - traefik.io
     resources:
       - ingressroutes
     verbs:
@@ -360,4 +361,34 @@ spec:
                 name: homepage
                 port:
                   number: 3000
+```
+
+### Multiple Replicas
+
+If you plan to deploy homepage with a replica count greater than 1, you may
+want to consider enabling sticky sessions on the homepage route. This will
+prevent unnecessary re-renders on page loads and window / tab focusing. The
+procedure for enabling sticky sessions depends on your Ingress controller. Below
+is an example using Traefik as the Ingress controller.
+
+```yaml
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: homepage.example.com
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`homepage.example.com`)
+      services:
+        - kind: Service
+          name: homepage
+          port: 3000
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
 ```

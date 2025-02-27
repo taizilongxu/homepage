@@ -1,25 +1,43 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import classNames from "classnames";
 import { Disclosure, Transition } from "@headlessui/react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
+import { columnMap } from "../../utils/layout/columns";
+
 import List from "components/services/list";
 import ResolvedIcon from "components/resolvedicon";
 
-export default function ServicesGroup({ group, services, layout, fiveColumns, disableCollapse, useEqualHeights }) {
+export default function ServicesGroup({
+  group,
+  layout,
+  fiveColumns,
+  disableCollapse,
+  useEqualHeights,
+  groupsInitiallyCollapsed,
+  isSubgroup,
+}) {
   const panel = useRef();
+
+  useEffect(() => {
+    if (layout?.initiallyCollapsed ?? groupsInitiallyCollapsed) panel.current.style.height = `0`;
+  }, [layout, groupsInitiallyCollapsed]);
+
+  let groupPadding = layout?.header === false ? "px-1" : "p-1 pb-0";
+  if (isSubgroup) groupPadding = "";
 
   return (
     <div
-      key={services.name}
+      key={group.name}
       className={classNames(
-        "services-group",
+        "services-group flex-1",
         layout?.style === "row" ? "basis-full" : "basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4",
         layout?.style !== "row" && fiveColumns ? "3xl:basis-1/5" : "",
-        layout?.header === false ? "flex-1 px-1 -my-1" : "flex-1 p-1",
+        groupPadding,
+        isSubgroup ? "subgroup" : "",
       )}
     >
-      <Disclosure defaultOpen>
+      <Disclosure defaultOpen={!(layout?.initiallyCollapsed ?? groupsInitiallyCollapsed) ?? true}>
         {({ open }) => (
           <>
             {layout?.header !== false && (
@@ -30,7 +48,7 @@ export default function ServicesGroup({ group, services, layout, fiveColumns, di
                   </div>
                 )}
                 <h2 className="flex text-theme-800 dark:text-theme-300 text-xl font-medium service-group-name">
-                  {services.name}
+                  {group.name}
                 </h2>
                 <MdKeyboardArrowDown
                   className={classNames(
@@ -62,7 +80,33 @@ export default function ServicesGroup({ group, services, layout, fiveColumns, di
               }}
             >
               <Disclosure.Panel className="transition-all overflow-hidden duration-300 ease-out" ref={panel} static>
-                <List group={group} services={services.services} layout={layout} useEqualHeights={useEqualHeights} />
+                <List
+                  groupName={group.name}
+                  services={group.services}
+                  layout={layout}
+                  useEqualHeights={useEqualHeights}
+                  header={layout?.header !== false}
+                />
+                {group.groups?.length > 0 && (
+                  <div
+                    className={`grid ${
+                      layout?.style === "row" ? `grid ${columnMap[layout?.columns]} gap-x-2` : "flex flex-col"
+                    } gap-2`}
+                  >
+                    {group.groups.map((subgroup) => (
+                      <ServicesGroup
+                        key={subgroup.name}
+                        group={subgroup}
+                        layout={layout?.[subgroup.name]}
+                        fiveColumns={fiveColumns}
+                        disableCollapse={disableCollapse}
+                        useEqualHeights={useEqualHeights}
+                        groupsInitiallyCollapsed={groupsInitiallyCollapsed}
+                        isSubgroup
+                      />
+                    ))}
+                  </div>
+                )}
               </Disclosure.Panel>
             </Transition>
           </>

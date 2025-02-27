@@ -7,19 +7,19 @@ import getServiceWidget from "utils/config/service-helpers";
 const logger = createLogger("xteveProxyHandler");
 
 export default async function xteveProxyHandler(req, res) {
-  const { group, service, endpoint } = req.query;
+  const { group, service, index } = req.query;
 
   if (!group || !service) {
     return res.status(400).json({ error: "Invalid proxy service type" });
   }
 
-  const widget = await getServiceWidget(group, service);
+  const widget = await getServiceWidget(group, service, index);
   const api = widgets?.[widget.type]?.api;
   if (!api) {
     return res.status(403).json({ error: "Service does not support API calls" });
   }
 
-  const url = formatApiCall(api, { endpoint, ...widget });
+  const url = formatApiCall(api, { endpoint: "api/", ...widget });
   const method = "POST";
   const payload = { cmd: "status" };
 

@@ -422,8 +422,25 @@
         "no_devices": "没有接收到设备数据"
     },
     "common": {
+	"bytes": "{{value, bytes}}",
+        "bits": "{{value, bytes(bits: true)}}",
+        "bbytes": "{{value, bytes(binary: true)}}",
+        "bbits": "{{value, bytes(bits: true; binary: true)}}",
+        "byterate": "{{value, rate(bits: false)}}",
         "bibyterate": "{{value, rate(bits: false; binary: true)}}",
-        "bibitrate": "{{value, rate(bits: true; binary: true)}}"
+        "bitrate": "{{value, rate(bits: true)}}",
+        "bibitrate": "{{value, rate(bits: true; binary: true)}}",
+        "percent": "{{value, percent}}",
+        "number": "{{value, number}}",
+        "ms": "{{value, number}}",
+        "date": "{{value, date}}",
+        "relativeDate": "{{value, relativeDate}}",
+        "duration": "{{value, duration}}",
+        "months": "月",
+        "days": "日",
+        "hours": "时",
+        "minutes": "分",
+        "seconds": "秒"
     },
     "omada": {
         "connectedAp": "连接中的AP",
@@ -750,5 +767,30 @@
     "alist": {
         "storage_count": "挂载数",
         "storage_error": "挂载错误"
-    }
+    },
+    "romm": {
+        "platforms": "平台",
+        "totalRoms": "游戏",
+        "saves": "存档",
+        "states": "状态",
+        "screenshots": "",
+        "totalfilesize": "总大小"
+    },
+    "myspeed": {
+        "ping": "乒",
+        "download": "上传",
+        "upload": "下载"
+    },
+    "beszel": {
+	    "systems": "系统",
+	    "up": "存活"
+    },
+    "openwrt": {
+        "uptime": "Uptime",
+        "cpuLoad": "CPU Load Avg (5m)",
+        "up": "Up",
+        "down": "Down",
+        "bytesTx": "发送",
+        "bytesRx": "接受"
+    } 
 }

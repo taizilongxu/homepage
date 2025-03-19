@@ -66,6 +66,7 @@ const components = {
   mastodon: dynamic(() => import("./mastodon/component")),
   mealie: dynamic(() => import("./mealie/component")),
   medusa: dynamic(() => import("./medusa/component")),
+  memos: dynamic(()=> import("./memos/component")),
   minecraft: dynamic(() => import("./minecraft/component")),
   miniflux: dynamic(() => import("./miniflux/component")),
   mikrotik: dynamic(() => import("./mikrotik/component")),

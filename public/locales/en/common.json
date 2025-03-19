@@ -855,6 +855,7 @@
     "alist": {
         "storage_count": "Mount count",
         "storage_error": "Mount error"
+    },
     "romm": {
         "platforms": "Platforms",
         "totalRoms": "Games",
@@ -1013,5 +1014,10 @@
         "issues": "Issues",
         "merges": "Merge Requests",
         "projects": "Projects"
+    },
+    "memos": {
+        "loading": "Loading...",
+        "count": "notes",
+        "tag_count": "tags"
     }
 }

@@ -792,5 +792,10 @@
         "down": "Down",
         "bytesTx": "发送",
         "bytesRx": "接受"
-    } 
+    },
+    "memos": {
+        "loading": "加载中...",
+        "count": "笔记总数",
+        "tag_count": "标签总数"
+    }
 }
